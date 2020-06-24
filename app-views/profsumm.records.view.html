@@ -1,0 +1,155 @@
+<nav class="mb-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Reports</li>
+        <li class="breadcrumb-item"><a ui-sref="container.profit_summary">Profit Summary</a></li>
+        <li ng-show="!detailMode" class="breadcrumb-item">Records</li>
+        <li ng-show="detailMode" ng-click="detailMode = false" class="breadcrumb-item link">Records</li>
+        <li ng-show="detailMode" class="breadcrumb-item">{{record.Remarks}}</li>
+    </ol>
+</nav>
+
+<div ng-show="!detailMode">
+    <div class="row mb-3">
+        <div class="col-sm-2">
+            <label class="label-sm mb-0">Year</label>
+            <select ng-disabled="loading" select2 ng-model="year" ng-change="load(year)" ng-options="item for item in years" class="form-control form-control-sm">
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div ng-show="(records==null || records.length == 0) && !loading" class="alert alert-warning text-center">
+                <em>Data not found.</em>
+            </div>
+
+            <div ng-show="!(records==null || records.length == 0) && !loading" class="card">
+                <div class="card-body">
+                    <table datatable="ng" dt-options="dtopt" class="table table-sm table-hover">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="font-weight-light">Action(s)</th>
+                                <th class="font-weight-light">Year</th>
+                                <th class="font-weight-light">Month</th>
+                                <th class="font-weight-light">Remarks</th>
+                                <th class="font-weight-light">DatePosted</th>
+                                <th class="font-weight-light">PostedBy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in records">
+                                <td class="text-center">
+                                    <button ng-click="remove(item)" class="btn btn-xs btn-danger hvr-shrink" title="Delete record">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <button ng-click="modalEdit(item)" class="btn btn-xs btn-info hvr-shrink" title="Edit remarks">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button ng-click="export(item)" class="btn btn-xs btn-success hvr-shrink" title="Export to excel">
+                                        <i class="fa fa-file-excel"></i>
+                                    </button>
+                                    <button ng-click="get(item)" class="btn btn-xs btn-info hvr-shrink" title="View details">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>       
+                                <td class="text-center">{{item.Yr}}</td>
+                                <td class="text-center">{{item.Pd}}</td>
+                                <td>{{item.Remarks}}</td>
+                                <td>{{item.DateCreated}}</td>
+                                <td>{{item.CreatedBy}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- /col -->
+    </div> <!--/row-->
+</div>
+
+
+<!-- DETAIL VIEW -->
+<div ng-show="detailMode" class="row">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{record.Remarks}} 
+                    <span class="badge badge-pill badge-info">{{record.Pd}}</span>
+                    <span class="badge badge-pill badge-info">{{record.Yr}}</span>
+                </h5>   
+            </div>
+            <div class="card-body pt-0">
+                <div>
+                    <button ng-click="detailMode = !detailMode" class="btn btn-sm btn-outline-info"><i class="fa fa-arrow-left"></i> Records</button>
+                    <button ng-click="export(record)" class="btn btn-sm btn-outline-success"><i class="fa fa-file-excel"></i> Export</button>
+                    <button ng-click="remove(record)" class="btn btn-sm btn-outline-danger"><i class="fa fa-times"></i> Delete</button>
+                </div>
+
+                <table class="table table-sm table-hover mt-2">
+                    <tbody ng-repeat="hdr in data.headers">
+                        <tr>
+                            <th ng-class="{'border-top-0':$index==0}">{{hdr.Name}}
+                                <span ng-class="['badge badge-pill',{'badge-success':hdr.Effect='ADD','badge-danger':hdr.Effect='LESS'}]">{{hdr.Effect}}</span>
+                            </th>
+                            <th ng-class="['text-right',{'border-top-0':$index==0}]">{{hdr.Total | number:2}}</th>
+                        </tr>
+                        <tr ng-repeat="dtl in data.details | filter:{PSId:hdr.PSId}">
+                            <td ng-click="modalDetails(dtl)" class="table-font-normal link">{{dtl.Name}}</td>
+                            <td class="table-font-normal text-right ">{{dtl.Total | number:2}}</td>
+                        </tr>
+                    </tbody>   
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Remarks -->
+<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Remarks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label class="label">Remarks</label>
+              <input ng-model="record.Remarks" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button ng-click="update(record)" type="button" class="btn btn-primary hvr-icon-back"><i class="fa fa-save hvr-icon"></i> Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal Details -->
+<div class="modal fade" id="modal-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><span class="text-warning mr-3"><i class="fa fa-lightbulb"></i></span>  {{detail.Name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-sm table-hover">
+              <tbody ng-repeat="cp in data.cashposition | filter:{LineId: detail.LineId'}" ng-if="cp.Name != ''">
+                <tr>
+                    <th>{{cp.Name}}</th>
+                    <th class="text-right">{{cp.Total |number:2}}</th>
+                </tr>
+                <tr ng-repeat="gl in data.raw | filter:{CPId: cp.CPId, CPLine: cp.CPLine}" ng-if="gl.AcctName != ''">
+                    <td>{{gl.AcctName}}</td>
+                    <td class="text-right">{{gl.TransAmt | number:2}}</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,316 @@
+﻿/*
+
+Primary color:
+#1BBC9A
+
+*/
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../Fonts/raleway/Raleway-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../Fonts/raleway/Raleway-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../Fonts/raleway/Raleway-Italic.ttf') format('truetype');
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../Fonts/raleway/Raleway-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../Fonts/raleway/Raleway-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('../Fonts/bebas/BebasNeue-Bold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('../Fonts/bebas/BebasNeue-Light.otf') format('opentype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('../Fonts/bebas/BebasNeue-Regular.otf') format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../Fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../Fonts/Lato/Lato-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../Fonts/Lato/Lato-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../Fonts/Open_Sans/OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../Fonts/Open_Sans/OpenSans-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+body {
+    font-size: 0.80rem;
+    font-family: Lato;
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
+    width: 190px;
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+    width: 190px;
+}
+
+.sb-topnav .navbar-brand {
+    width: 190px;       
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+    padding-left: 190px;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
+    color: #fff;
+    background: #1BBC9A;
+}
+
+.navbar-light .navbar-brand {
+  color: #1BBC9A;
+}
+
+.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+    color: #0072D9;
+}
+
+.navbar-brand {
+    font-size: 1rem;
+    font-weight: normal;
+    font-family: Raleway;
+}
+
+.sb-topnav {
+    height: 45px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #1BBC9A;
+    font-weight: normal;
+}
+
+/* .card, .breadcrumb, .custom-select {
+  border-radius: 0;
+} */
+
+h1, .h1 {
+  font-size: 2rem;
+}
+
+.form-control, .btn, .dropdown-menu {
+    border-radius: 0;
+    font-size: 0.8rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+button, input, optgroup, select, textarea, option {
+    font-family: Lato !important;
+}
+
+.custom-select-sm {
+    font-family: Lato !important;
+    font-size: 0.80rem;
+}
+
+.font-normal {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.font-lg {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+@media (min-width: 992px) {
+    .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
+        margin-left: -190px;
+    }
+}
+
+.card-stat {
+    cursor: pointer;
+    top: 0;
+    opacity: 1;
+    transition: all ease 0.3s;
+}
+
+.card-stat:hover {
+    top: -10px;
+    opacity: 0.8;
+}
+
+.table thead th {
+    vertical-align: middle;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: none;
+}
+
+table thead th, table thead td, table tbody th, table tbody td {
+    padding: 0.45rem 1.25rem;
+}
+
+th, td {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+table {
+    table-layout: auto;
+}
+
+table tbody td,table tfoot td {
+    font-size: 0.70rem;
+    /*font-family: Calibri;*/
+}
+
+.select2-container--default .select2-selection--single {
+    border-radius: 0;
+}
+
+tr.selected {
+    background: #BFE1FF !important;
+}
+
+.table-wrapper {
+    max-height: 300px !important;
+    width: 100%;
+    overflow: auto;
+    display:inline-block;
+}
+
+.link {
+    cursor: pointer;
+    color: #007bff;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.tbl-fixhead { overflow-y: scroll; max-height: 500px; }
+/*.tbl-fixhead thead th { position: sticky; top: 0; }*/
+
+
+.form-control-sm {
+    height: calc(1.5em + 0.5rem);
+    padding: 0rem 0.5rem;
+    font-size: 0.75rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 1.5;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    height: calc(1.5em + 0.5rem);
+}
+
+.bg-include {
+    background: #96D3B7 !important;
+}
+
+.bg-exclude {
+    background: #FF8B85 !important;
+}
+
+.ag-cell-wrapper {
+    display: block !important;
+}
+
+.btn-xs {
+    padding: 0.20rem 0.5rem;
+    font-size: 0.7rem;
+}
+
+.ag-theme-balham .ag-row-selected {
+    background-color: #b7e4ff !important;
+}
+
+.label-sm {
+    font-size: 0.75rem !important;
+}
+
+.list-group-item {
+    border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.bg-main {
+    background-color: #1BBC9A;
+}
+
+.text-main {
+    color: #1BBC9A;
+}
+
+.wrap svg {
+    height: 100%;
+}
+
+table tbody td.table-font-normal, table tfoot td.table-font-normal {
+    font-size: 0.8rem !important;
+}
+
+.custom-file-label {
+    border-radius: 0;
+}

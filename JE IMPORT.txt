@@ -1,0 +1,22 @@
+REQUIREMENTS:
+import excel file
+provide excel format
+viewing of imported file
+saving of imported file
+posting of imported file
+reversal of posted data
+update detail if not yet posted
+
+
+VALIDATIONS:
+checking if balance(debit vs credit)
+checking if correct data
+if valid empid based on set of GL accounts
+
+FUNCTIONS:
+get all gl accounts for checking
+get all employee code for checking
+
+
+
+https://www.youtube.com/watch?v=OK60UdWyUdE

@@ -1,0 +1,130 @@
+<nav class="mb-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Reports</li>
+        <li class="breadcrumb-item">Cash Position</li>
+    </ol>
+</nav>
+
+<div class="form-row align-items-end">
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="label-sm">Year</label>
+            <select select2 ng-model="year" ng-options="item for item in years" class="form-control form-control-sm">
+            </select>
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="label-sm">Month</label>
+            <select select2 ng-model="month" ng-options="item.id as item.name for item in months" class="form-control form-control-sm">
+            </select>
+        </div>
+    </div>
+    
+    <div class="col-sm-4">
+        <div class="form-group">
+            <button ng-disabled="loading" ng-click="load(year,month)" type="button" class="btn btn-outline-primary btn-sm px-3"><i class="fa fa-redo-alt"></i> <span class="hvr-forward">Load</span></button>
+            <button ng-disabled="loading" ng-click="modalPost()" type="button" class="btn btn-outline-warning btn-sm px-3"><i class="fa fa-save"></i> <span class="hvr-forward">Post</span></button>
+            <a ng-disabled="loading" ui-sref="container.cash_position_records" type="button" class="btn btn-outline-info btn-sm px-3"><i class="fa fa-archive"></i> <span class="hvr-forward">Records</span></a>
+            <a ng-disabled="loading" ui-sref="container.cash_position_setup" class="btn btn-outline-danger btn-sm px-3"><i class="fa fa-cog"></i> <span class="hvr-forward">Setup</span></a>
+            <img ng-if="loading" class="img img-fluid ml-2" src="data:image/gif;base64,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">
+        </div>
+    </div>
+</div> <!--/row-->
+
+<div ng-show="headers.length == 0 || headers == null" class="row">
+    <div class="col-sm-8">
+        <div class="alert alert-light bg-transparent border-0 text-center">
+            <em>Data not found.</em>
+        </div>
+    </div>
+</div>
+
+<div ng-show="headers.length > 0 && !loading" class="row">
+    <div class="col-sm-10">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row d-flex justify-content-end">
+                    <div class="col-sm-2 form-group">
+                        <label class="label-sm mb-0">Beginning</label>
+                        <input ng-model="begamt" type="text" class="form-control form-control-sm text-right" placeholder="0.00" readonly>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label class="label-sm mb-0">Current</label>
+                        <input ng-model="curramt" type="text" class="form-control form-control-sm text-right" placeholder="0.00" readonly>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label class="label-sm mb-0">End</label>
+                        <input ng-model="endamt" type="text" class="form-control form-control-sm text-right" placeholder="0.00" readonly>
+                    </div>
+                </div>
+
+                <table class="table table-hover mt-2">
+                    <tbody ng-repeat="hdr in headers">
+                        <tr>
+                            <th>{{ hdr.Header }} <span ng-class="['badge',{'badge-success':hdr.Effect=='ADD','badge-danger':hdr.Effect=='LESS'}]">{{hdr.Effect}}</span></th>
+                            <th class="text-right">{{ hdr.Total | number:2 }}</th>
+                        </tr>
+        
+                        <tr ng-repeat="dtl in details | filter:{CPId:hdr.CPId}">
+                            <td ng-click="modalGL(dtl)" class="link">{{ dtl.Detail }}</td>
+                            <td class="text-right">{{ dtl.Total | number:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SUMMARY PER GL MODAL -->
+<div class="modal fade" id="modal-gl" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">{{detail.Detail}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div ng-show="!hasGL" class="alert alert-secondary border-0 bg-white text-center px-3">
+                <em>Data not found.</em>
+            </div>
+
+            <table class="table table-hover">
+                <tbody>
+                    <tr ng-repeat="gl in glaccounts | filter:{CPLine:detail.CPLine}">
+                        <td>{{gl.AcctName}}</td>
+                        <td class="text-right">{{gl.TransAmt | number:2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POSTING RECORD MODAL -->
+<div class="modal fade" id="modal-posting" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">{{title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="label">Remarks</label>
+                <input ng-model="record.Remarks" type="text" class="form-control form-control-lg" placeholder="Set remarks..">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="post()" type="button" class="btn btn-primary px-3"><i class="fa fa-save"></i> Post</button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div id="layoutSidenav">
+    <div ng-include="'app-includes/topnav.partial.html'"></div>
+    <div ng-include="'app-includes/sidenav.partial.html'"></div>
+    <div id="layoutSidenav_content">
+        <div class="container-fluid">
+            <div class="mb-5" ui-view></div>
+        </div>
+        <footer class="py-3 bg-light mt-auto" ng-show="loggedIn">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Christopher Bermudez</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

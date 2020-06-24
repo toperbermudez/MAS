@@ -1,0 +1,101 @@
+<!-- <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active pointer"><a data-target="#">Journal Entries</a></li>
+    </ol>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <span class="navbar-brand">Journal Entries</span>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" ui-sref="container.je">Main</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Import</a>
+          </li>
+      </ul>
+</nav>
+
+<form ng-submit="loadFile()" class="form-row mt-3 align-items-center" id="form-file">
+    <div class="form-group col-sm-2">
+        <!-- <div class="input-group input-group-sm">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div> -->
+        <input type="file" class="form-control-file form-control-sm" id="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+    </div>
+    <div class="form-group col-sm-6">
+        <button type="submit" class="btn btn-outline-primary btn-sm px-3 hvr-icon-back"><i class="fa fa-spinner hvr-icon"></i> Load</button>
+        <button ng-disabled="!isValid" ng-click="save()" type="button" class="btn btn-outline-primary btn-sm px-3 hvr-icon-back"><i class="fa fa-save hvr-icon"></i> Save</button>
+        <a ui-sref="container.je_import_records" class="btn btn-outline-info btn-sm hvr-icon-back"><i class="fa fa-archive hvr-icon"></i> Records</a>
+        <button ng-click="getTemplate()" type="button" class="btn btn-outline-success btn-sm hvr-icon-back"><i class="fa fa-file-download hvr-icon"></i> Download Template</button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div ng-show="data != null || data.headers.length > 0" class="card">
+            <div class="card-body">
+                <form class="form-row" id="form-info">
+                    <div class="form-group col-sm-4">
+                        <label class="label-sm mb-0">Filename</label>
+                        <input ng-model="fileName" type="text" class="form-control form-control-sm" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label class="label-sm mb-0">Debit</label>
+                        <input ng-model="totalDebit" type="text" class="form-control form-control-sm text-right" placeholder="0.00" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label class="label-sm mb-0">Credit</label>
+                        <input ng-model="totalCredit" type="text" class="form-control form-control-sm text-right" placeholder="0.00" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label class="label-sm mb-0">Difference</label>
+                        <input ng-model="totalDiff" type="text" class="form-control form-control-sm text-right" placeholder="0.00" readonly>
+                    </div>
+                </form>
+
+                <div class="table-wrapper">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="font-weight-light">ID#</th>
+                                <th class="font-weight-light">Line#</th>
+                                <th class="font-weight-light">RefDate</th>
+                                <th class="font-weight-light">GLAccount</th>
+                                <th class="font-weight-light">AcctName</th>
+                                <th class="font-weight-light">Debit</th>
+                                <th class="font-weight-light">Credit</th>
+                                <th class="font-weight-light">Remarks</th>
+                                <th class="font-weight-light">EmpID</th>
+                                <th class="font-weight-light">Ref1</th>
+                                <th class="font-weight-light">Ref2</th>
+                                <th class="font-weight-light">Ref3</th>
+                                <th class="font-weight-light">Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in data.details" ng-class="{'bg-light':item.IDNum % 2 == 0}">
+                                <td class="text-center">{{item.DocID}}</td>
+                                <td class="text-center">{{item.LineNum}}</td>
+                                <td class="text-center">{{item.RefDate | date:'MM/dd/yyyy'}}</td>
+                                <td class="text-center">{{item.GLAccount}}</td>
+                                <td>{{item.AcctName}}</td>
+                                <td class="text-right">{{item.Debit | number:2}}</td>
+                                <td class="text-right">{{item.Credit | number:2}}</td>
+                                <td>{{item.Remarks}}</td>
+                                <td>{{item.EmpID}}</td>
+                                <td>{{item.Ref1}}</td>
+                                <td>{{item.Ref2}}</td>
+                                <td>{{item.Ref3}}</td>
+                                <td class="text-danger">{{item.Note}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<nav class="mb-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Reports</li>
+        <li class="breadcrumb-item"><a ui-sref="container.cash_position">Cash Position</a></li>
+        <li class="breadcrumb-item">Setup</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <!-- HEADER ------------------------------------------------------------------------------------------------->
+    <div ng-class="['header-container col-sm-6',{'offset-sm-3': !detailMode}]" ng-model="headers" ui-sortable="headerSortOpt">
+        <div class="card mb-1">
+            <div class="card-header pb-0">
+                <h5 class="card-title d-flex justify-content-between">
+                    Descriptions
+                    <span>
+                        <button ng-click="searchDescripMode = !searchDescripMode; searchDescrip=''" class="btn btn-default text-info" title="Search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button ng-click="modalNewHeader()" class="btn btn-default text-main" title="Add new header">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                </h5>
+            </div>
+            <div ng-show="searchDescripMode" ng-class="{'animated fadeIn faster': searchDescripMode}" class="card-body pt-0">
+                <input ng-model="searchDescrip" type="text" class="form-control form-control-sm" placeholder="Search..">
+            </div>
+        </div><!--/header-->
+
+        <div ng-show="headers.length==0" class="alert alert-light border-0 bg-transparent text-center">
+            <em>Data not found.</em>
+        </div>
+
+        <div ng-repeat="item in headers | filter:searchDescrip" ng-mouseover="descripOptionsMode[$index]=true" ng-mouseleave="descripOptionsMode[$index]=false" class="card card-header repeat-animation p-0 mb-1">
+            <div class="card-body d-flex justify-content-between align-items-center py-2">
+                <span>
+                    {{item.Descrip}} <span ng-class="['badge badge-pill',{'badge-success':item.Effect=='ADD','badge-danger':item.Effect=='LESS'}]">{{item.Effect}}</span>
+                </span>
+                <span class="badge badge-pill badge-info">{{item.Details > 0 ? item.Details: ''}}</span>
+            </div>
+            <div ng-show="descripOptionsMode[$index]" ng-class="{'animated fadeIn faster': descripOptionsMode[$index]}" class="card-footer bg-white border-top-0 pt-0 pb-2 d-flex justify-content-end repeat-animation">
+                <button ng-click="header.remove(item)" class="btn btn-xs btn-danger" title="Remove"><i class="fa fa-times"></i></button>
+                <button ng-click="modalEditHeader(item)" class="btn btn-xs btn-warning" title="Edit"><i class="fa fa-pencil-alt"></i></button>
+                <button ng-click="detail.get(item)" class="btn btn-xs btn-info" title="Details"><i class="fa fa-angle-double-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL ---------------------------------------------------------------------------------------------------------------------->
+    <div ng-show="detailMode" ng-class="['detail-container col-sm-6',{'animated fadeIn': detailMode}]" ui-sortable="detailSortOpt" ng-model="details">
+        <div class="card mb-1">
+            <div class="card-header pb-0">
+                <h6 class="card-title d-flex align-items-center justify-content-between">
+                    <span>
+                        {{headerdata.Descrip}}
+                        <span ng-class="['badge badge-pill',{'badge-success':headerdata.Effect=='ADD','badge-danger':headerdata.Effect=='LESS'}]">{{headerdata.Effect}}</span>
+                    </span>
+                    <span>
+                        <button ng-click="findDetMode = !findDetMode; findDet = ''" class="btn btn-default text-info" title="Search"><i class="fa fa-search"></i></button>
+                        <button ng-click="modalNewDetail()" class="btn btn-default text-main" title="Add"><i class="fa fa-plus"></i></button>
+                        <button ng-click="detailMode=false" class="btn btn-default text-danger" title="Close"><i class="fa fa-times"></i></button>
+                    </span>
+                </h6>
+            </div>
+            <div ng-show="findDetMode" ng-class="{'animated fadeIn faster': findDetMode}" class="card-body pt-0">
+                <input ng-model="findDet" type="text" class="form-control form-control-sm" placeholder="Search..">
+            </div>
+        </div>
+
+        <div ng-show="details == null || details.length==0" class="alert alert-light border-0 bg-transparent text-center">
+            <em>Data not found.</em>
+        </div>
+
+        <div ng-repeat="item in details | filter:findDet" ng-mouseover="detOptMode[0]=true" ng-mouseleave="detOptMode[0]=false" class="card card-detail repeat-animation mb-1">
+            <div class="card-body d-flex align-items-center justify-content-between py-2">
+                {{item.Descrip}}
+                <span class="badge badge-pill badge-info">{{item.Mapped == 0 ? '' : item.Mapped}}</span>
+            </div>
+            <div ng-show="detOptMode[0]" ng-class="{'animated fadeIn faster': detOptMode[0]}" class="card-footer bg-white border-top-0 pt-0 pb-2 d-flex justify-content-end repeat-animation">
+                <button ng-click="detail.remove(item)" class="btn btn-xs btn-danger" title="Remove"><i class="fa fa-times"></i></button>
+                <button ng-click="modalEditDetail(item)" class="btn btn-xs btn-warning" title="Edit"><i class="fa fa-pencil-alt"></i></button>
+                <button ng-click="mapping.get(item)" class="btn btn-xs btn-info" title="GL Mapping"><i class="fa fa-tags"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- HEADER MODAL ---------------------------------------------------------------------->
+<div class="modal fade" id="modal-header" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form ng-submit="header.add(headerdata)">
+            <div class="modal-header">
+                <h5 ng-show="addHeaderMode" class="modal-title text-main">Create New Description</h5>
+                <h5 ng-show="!addHeaderMode" class="modal-title text-main">Modify Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                    <label class="label-sm mb-0">Name</label>
+                    <input ng-model="headerdata.Descrip" type="text" class="form-control" placeholder="Input description/label name here..">
+                </div>
+                <div class="form-row align-items-end">
+                    <div class="form-group col-sm-4">
+                        <label class="label-sm mb-0">Effect</label>
+                        <select ng-model="headerdata.Effect" select2 class="form-control" required>
+                            <option value="ADD">Add</option>
+                            <option value="LESS">Less</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="custom-control custom-checkbox">
+                            <input ng-model="headerdata.Postable" type="checkbox" class="custom-control-input" id="check-postable">
+                            <label class="custom-control-label" for="check-postable">Postable</label>
+                          </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button ng-show="addHeaderMode" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <span class="hvr-forward">Save Changes</span></button>
+                <button ng-click="header.update(headerdata)" ng-show="!addHeaderMode" type="button" class="btn btn-primary"><i class="fa fa-save"></i> <span class="hvr-forward">Update Header</span></button>
+              </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!-- DETAIL MODAL ---------------------------------------------------------------------->
+<div class="modal fade" id="modal-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form ng-submit="detail.add(detaildata)">
+            <div class="modal-header">
+                <h5 ng-show="addDetailMode" class="modal-title text-main">Create New Transaction Type</h5>
+                <h5 ng-show="!addDetailMode" class="modal-title text-main">Modify Transaction Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <div class="form-group">
+                <label class="label-sm mb-0">Name</label>
+                <input ng-model="detaildata.Descrip" type="text" class="form-control" placeholder="Input transaction type name here..">
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button ng-show="addDetailMode" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <span class="hvr-forward">Add Transaction Type</span></button>
+            <button ng-click="detail.update(detaildata)" ng-show="!addDetailMode" type="button" class="btn btn-primary"><i class="fa fa-save"></i> <span class="hvr-forward">Update Transaction Type</span></button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!-- MAPPING MODAL ---------------------------------------------------------------------->
+<div class="modal fade" id="modal-mapping" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-main">{{detaildata.Descrip}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- <input ng-model="searchGL" type="text" class="form-control" placeholder="Search GL Account.."> -->
+
+            <input ng-model='searchGL'
+                    uib-typeahead='item.AcctCode as item.AcctName for item in glaccounts | filter:$viewValue | limitTo: 10'
+                    typeahead-on-select="mapping.add($item,$model,$label)" class="form-control"
+                    placeholder="Search GL Account..">
+            
+            <div ng-show="maps.length == 0" class="alert alert-light bg-transparent border-0 text-center">
+                <em>Data not found.</em>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="table table-sm table-hover mt-3">
+                    <tbody>
+                        <tr ng-repeat="item in maps">
+                            <td>{{item.AcctName}}</td>
+                            <td ng-click="mapping.remove(item)" class="text-right"><button class="btn btn-default text-danger py-0" title="Remove"><i class="fa fa-times"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- <div class="list-group list-group-flush mt-3 border-top-0">
+                <div class="list-group-item list-group-item-action d-flex align-items-center justify-content-between py-1">
+                    Dapibus ac facilisis in
+                    <button class="btn btn-default text-danger px-0" title="Remove"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="list-group-item list-group-item-action d-flex align-items-center justify-content-between py-1">
+                    Dapibus ac facilisis in
+                    <button class="btn btn-default text-danger px-0" title="Remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div> -->
+        </div>
+      </div>
+    </div>
+</div>

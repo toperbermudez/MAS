@@ -1,0 +1,24 @@
+<div id="layoutSidenav_content">
+    <div class="container-fluid pt-5">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 px-5">
+                <h1 class="h3 text-center text-white font-weight-light mb-3">Macrohealth Accounting System</h1>
+                <div class="card rounded mt-5">
+                    <div class="card-body text-center py-5">
+                        <h2 class="font-weight-light text-muted">Log in</h3>
+                        <form ng-submit="login()" class="pb-5">
+                            <div class="form-group">
+                                <label for="username" class="sr-only">Username</label>
+                                <input type="text" id="username" class="form-control font-normal mb-3 rounded" placeholder="Username" ng-model="username" required autofocus>
+                                <label for="password" class="sr-only">Password</label>
+                                <input ng-disabled="loading" type="password" id="password" class="form-control font-normal rounded" placeholder="Password" ng-model="password" required>
+                            </div>
+                            <button ng-disabled="loading" class="btn btn-lg btn-success font-lg btn-block rounded py-2" type="submit"><i class="fa fa-user-lock"></i> Sign in</button>
+                            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

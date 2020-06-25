@@ -5,7 +5,8 @@
         .module("app", ['ui.router', 'datatables', 'ngAnimate', 'ngMessages', 'ngStorage', 'toastr', 'cp.ngConfirm','ui.bootstrap', 'ui.sortable', 'agGrid'])
         .config(config)
         .run(run)
-        //.constant('serviceBasePath', 'http://192.171.3.2/b1integration/');
+        // .constant('serviceBasePath', 'http://192.171.3.29:84/MASAPI/');
+        // .constant('serviceBasePath', 'http://192.171.3.2/mas-api/');
         .constant('serviceBasePath', 'http://localhost:18831/');
 
     config.$inject = ['$stateProvider', '$urlRouterProvider']

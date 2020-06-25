@@ -42,7 +42,7 @@
                     }
                 }, function (response) {
                     console.log(response);
-                    toastr.error(response.data.error_description);
+                    toastr.error(response.data.error);
                     $rootScope.loggedIn = false;
                     callback({ success: false });
                 });

@@ -30,6 +30,14 @@
             });
         }
 
+        //-------------------------------------------------------------------------------------------
+        scope.checkAllRecords = function(check) {
+            scope.records.forEach(e => {
+                e.Selected = !Boolean(check);
+            });
+            console.log(scope.records);
+        }
+
         scope.post = function() {
             if(scope.records.filter(x => x.Selected).length == 0) {
                 toastr.warning("No data selected.");

@@ -138,8 +138,8 @@
         </div>
         <div class="modal-body">
           <table class="table table-sm table-hover">
-              <tbody ng-repeat="cp in data.cashposition | filter:{LineId: detail.LineId'}" ng-if="cp.Name != ''">
-                <tr>
+              <tbody>
+                <tr ng-repeat-start="cp in data.cashposition | filter:{LineId: detail.LineId}" ng-if="cp.Name != ''">
                     <th>{{cp.Name}}</th>
                     <th class="text-right">{{cp.Total |number:2}}</th>
                 </tr>
@@ -147,7 +147,7 @@
                     <td>{{gl.AcctName}}</td>
                     <td class="text-right">{{gl.TransAmt | number:2}}</td>
                 </tr>
-              </tbody>
+              </tbody ng-repeat-end="">
           </table>
         </div>
       </div>

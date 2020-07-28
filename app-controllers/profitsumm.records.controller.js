@@ -133,7 +133,7 @@
         scope.modalDetails = function(item) {
             angular.element('#modal-details').modal('show');
             scope.detail = item;
-            scope.hasGL = scope.data.cashposition.filter(x => x.PSLine == item.PSLine).length > 0;
+            scope.hasGL = Boolean(scope.data.cashposition.filter(x => x.PSLine == item.PSLine).length > 0);
         }
         //-----------------------------------------------------------------------------------------------
 

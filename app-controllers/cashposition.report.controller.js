@@ -17,7 +17,7 @@
                     scope.details = response.data.details;
                     scope.data = response.data.data;
                     scope.glaccounts = response.data.glaccounts;
-                    scope.record.CurrAmt = scope.headers.map(x => x.Total).reduce((prev, next) => prev + next);
+                    scope.record.CurrAmt = scope.headers.length > 0 ? scope.headers.map(x => x.Total).reduce((prev, next) => prev + next) : 0;
                     scope.record.EndAmt = scope.record.BegAmt + scope.record.CurrAmt;
 
                     scope.begamt = filter('number')(scope.record.BegAmt,2);

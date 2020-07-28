@@ -35,7 +35,6 @@
             scope.records.forEach(e => {
                 e.Selected = !Boolean(check);
             });
-            console.log(scope.records);
         }
 
         scope.post = function() {
